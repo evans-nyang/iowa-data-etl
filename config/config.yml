@@ -1,0 +1,35 @@
+# Database configuration
+database:
+  name: iowa_data
+  host: localhost
+  port: 5432
+  user: postgres
+
+# API configuration
+api:
+  url: https://data.iowa.gov/resource/m3tr-qhgy.json?$query=
+  query: SELECT invoice_line_no, date, store, name, address, city, zipcode, store_location, county_number, county, category, category_name, vendor_no, vendor_name, itemno, im_desc, pack, bottle_volume_ml, state_bottle_cost, state_bottle_retail, sale_bottles, sale_dollars, sale_liters, sale_gallons, :@computed_region_3r5t_5243, :@computed_region_wnea_7qqw, :@computed_region_i9mz_6gmt, :@computed_region_uhgg_e8y2, :@computed_region_e7ym_nrbf
+
+# dbt configuration
+dbt:
+  project_name: iowa_data_ingestion_etl
+  profile_name: default
+
+# data paths
+file_paths:
+  raw: ../data/raw
+  processed: ../data/processed
+  models: ../data/models
+  analysis: ../data/analysis
+  reports: ../data/reports
+
+# s3 configuration
+s3:
+  bucket: iowa-data
+  region: eu-west-1
+  raw: raw
+  processed: processed
+  models: models
+  analysis: analysis
+  reports: reports
+  file: "raw/parquet_data/crude_iowa_data.parquet"
