@@ -22,3 +22,14 @@ file_paths:
   models: ../data/models
   analysis: ../data/analysis
   reports: ../data/reports
+
+# s3 configuration
+s3:
+  bucket: iowa-data
+  region: eu-west-1
+  raw: raw
+  processed: processed
+  models: models
+  analysis: analysis
+  reports: reports
+  file: "raw/parquet_data/crude_iowa_data.parquet"
