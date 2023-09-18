@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: iowa_data
+    description: >
+      Data from the Iowa Alcoholic Beverages Division
+    database: iowa_data
+    schema: public
+    tables:
+      - name: iowa_sales_data
+        description: >
+          One record per sale of alcohol in the state of Iowa
+        columns:
+          - name: invoice_line_no
+            description: Primary key for the table
+            tests:
+              - unique
+              - not_null
+          - name: date
+            description: Date of the sale
+            tests:
+              - not_null
