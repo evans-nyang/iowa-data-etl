@@ -28,9 +28,9 @@ services:
       context: ./dbt_iowa
       dockerfile: Dockerfile.dbt
     container_name: dbt_iowa
-    command: "build"
+    command: sh -c "dbt deps && dbt build"
     environment:
-      POSTGRES_TEST_HOST: "db"
+      POSTGRES_TEST_HOST: ${POSTGRES_HOST}
     volumes:
       - ./dbt_iowa:/usr/app/dbt_iowa
     ports:
