@@ -1,0 +1,71 @@
+version: 2
+
+models:
+  - name: fact_invoices
+    description: >
+      A fact table containing one record per invoice.
+    columns:
+      - name: date
+        tests:
+          - not_null
+
+      - name: invoice_date_hash
+        tests:
+          - not_null
+          - unique
+
+      - name: invoice_line_hash
+        tests:
+          - not_null
+
+      - name: store_hash
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_stores')
+              field: store_hash
+
+      - name: category_hash
+        tests:
+          - not_null
+
+      - name: item_hash
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_items')
+              field: item_hash
+
+      - name: vendor_hash
+        tests:
+          - not_null
+
+      - name: county_hash
+        tests:
+          - not_null
+
+  - name: dim_stores
+    description: >
+      A dimension table containing one record per store.
+    columns:
+      - name: store_hash
+        tests:
+          - not_null
+          - unique
+
+      - name: store_no
+        tests:
+          - not_null
+
+  - name: dim_items
+    description: >
+      A dimension table containing one record per item.
+    columns:
+      - name: item_hash
+        tests:
+          - not_null
+          - unique
+
+      - name: item_no
+        tests:
+          - not_null

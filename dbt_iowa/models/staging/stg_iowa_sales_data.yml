@@ -1,0 +1,118 @@
+version:
+
+models:
+  - name: stg_categories
+    description: >
+      A staging view containing one record per category.
+    columns:
+      - name: category_hash
+        description: Primary key for the table
+        tests:
+          - unique
+          - not_null
+      - name: category
+        description: The category of the item
+        tests:
+          - not_null
+      - name: category_name
+        description: The name of the category
+        tests:
+          - not_null
+  
+  - name: stg_counties
+    description: >
+      A staging view containing one record per county.
+    columns:
+      - name: county_hash
+        description: Primary key for the table
+        tests:
+          - unique
+          - not_null
+      - name: county
+        description: The county of the store
+        tests:
+          - not_null
+  
+  - name: stg_items
+    description: >
+      A staging view containing one record per item.
+    columns:
+      - name: item_hash
+        description: Primary key for the table
+        tests:
+          - unique
+          - not_null
+      - name: item_no
+        description: The item number
+        tests:
+          - not_null
+      - name: category_hash
+        description: Foreign key to the category
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_categories')
+              field: category_hash
+  
+  - name: stg_stores
+    description: >
+      A staging view containing one record per store.
+    columns:
+      - name: store_hash
+        description: Primary key for the table
+        tests:
+          - unique
+          - not_null
+      - name: store_no
+        description: The store number
+        tests:
+          - not_null
+      - name: county_hash
+        description: Foreign key to the county
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_counties')
+              field: county_hash
+
+  - name: stg_vendors
+    description: >
+      A staging view containing one record per vendor.
+    columns:
+      - name: vendor_hash
+        description: Primary key for the table
+        tests:
+          - unique
+          - not_null
+      - name: vendor_no
+        description: The vendor number
+        tests:
+          - not_null
+  
+  - name: stg_invoices
+    description: >
+      A staging view containing one record per invoice.
+    columns:
+      - name: invoice_date_hash
+        description: Primary key for the table
+        tests:
+          - unique
+          - not_null
+      - name: invoice_line_no
+        description: The invoice number
+        tests:
+          - not_null
+      - name: store_hash
+        description: Foreign key to the store
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_stores')
+              field: store_hash
+      - name: vendor_hash
+        description: Foreign key to the vendor
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_vendors')
+              field: vendor_hash
