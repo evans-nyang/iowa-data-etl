@@ -3,7 +3,7 @@ WITH source AS (
 ),
 
 stg_vendors AS (
-    SELECT
+    SELECT DISTINCT
         md5(vendor_no::text) as vendor_hash,
         vendor_no,
         vendor_name
