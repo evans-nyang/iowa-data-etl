@@ -11,27 +11,8 @@ stg_stores AS (
         city,
         zipcode,
         latitude,
-        longitude,
-        md5(county_number::text) as county_hash,
-        md5(vendor_no::text) as vendor_hash
+        longitude
     FROM source
-),
-
-stg_counties AS (
-    SELECT * FROM {{ ref('stg_counties') }}
-),
-
-stg_vendors AS (
-    SELECT * FROM {{ ref('stg_vendors') }}
-),
-
-staging AS (
-    SELECT stg_stores.*,
-        stg_counties.county_number,
-        stg_vendors.vendor_no
-    FROM stg_stores
-    LEFT JOIN stg_counties USING (county_hash)
-    LEFT JOIN stg_vendors USING (vendor_hash)
 )
 
-SELECT * FROM staging
+SELECT * FROM stg_stores
