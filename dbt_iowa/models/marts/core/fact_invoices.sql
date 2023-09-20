@@ -38,16 +38,16 @@ _intermediate AS (
     SELECT 
         *
     FROM stg_invoices
-    LEFT JOIN dim_stores USING (store_hash)
-    LEFT JOIN dim_items USING (item_hash)
-    LEFT JOIN dim_sales USING (invoice_line_hash)
-    LEFT JOIN dim_vendors USING (vendor_hash)
-    LEFT JOIN dim_counties USING (county_hash)
-    LEFT JOIN dim_categories USING (category_hash)
+    INNER JOIN dim_stores USING (store_hash)
+    INNER JOIN dim_items USING (item_hash)
+    INNER JOIN dim_sales USING (invoice_line_hash)
+    INNER JOIN dim_vendors USING (vendor_hash)
+    INNER JOIN dim_counties USING (county_hash)
+    INNER JOIN dim_categories USING (category_hash)
 ),
 
 final AS (
-    SELECT
+    SELECT DISTINCT
         date,
         invoice_date_hash,
         invoice_line_hash,
