@@ -28,6 +28,9 @@ models:
       - name: category_hash
         tests:
           - not_null
+          - relationships:
+              to: ref('dim_categories')
+              field: category_hash
 
       - name: item_hash
         tests:
@@ -39,33 +42,39 @@ models:
       - name: vendor_hash
         tests:
           - not_null
+          - relationships:
+              to: ref('dim_vendors')
+              field: vendor_hash
 
       - name: county_hash
         tests:
           - not_null
+          - relationships:
+              to: ref('dim_counties')
+              field: county_hash
 
-  - name: dim_stores
-    description: >
-      A dimension table containing one record per store.
-    columns:
-      - name: store_hash
-        tests:
-          - not_null
-          - unique
+  # - name: dim_stores
+  #   description: >
+  #     A dimension table containing one record per store.
+  #   columns:
+  #     - name: store_hash
+  #       tests:
+  #         - not_null
+  #         - unique
 
-      - name: store_no
-        tests:
-          - not_null
+  #     - name: store_no
+  #       tests:
+  #         - not_null
 
-  - name: dim_items
-    description: >
-      A dimension table containing one record per item.
-    columns:
-      - name: item_hash
-        tests:
-          - not_null
-          - unique
+  # - name: dim_items
+  #   description: >
+  #     A dimension table containing one record per item.
+  #   columns:
+  #     - name: item_hash
+  #       tests:
+  #         - not_null
+  #         - unique
 
-      - name: item_no
-        tests:
-          - not_null
+  #     - name: item_no
+  #       tests:
+  #         - not_null

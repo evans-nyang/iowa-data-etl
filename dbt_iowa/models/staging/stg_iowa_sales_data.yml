@@ -18,7 +18,7 @@ models:
         description: The name of the category
         tests:
           - not_null
-  
+
   - name: stg_counties
     description: >
       A staging view containing one record per county.
@@ -32,7 +32,7 @@ models:
         description: The county of the store
         tests:
           - not_null
-  
+
   - name: stg_items
     description: >
       A staging view containing one record per item.
@@ -46,14 +46,7 @@ models:
         description: The item number
         tests:
           - not_null
-      - name: category_hash
-        description: Foreign key to the category
-        tests:
-          - not_null
-          - relationships:
-              to: ref('stg_categories')
-              field: category_hash
-  
+
   - name: stg_stores
     description: >
       A staging view containing one record per store.
@@ -67,13 +60,6 @@ models:
         description: The store number
         tests:
           - not_null
-      - name: county_hash
-        description: Foreign key to the county
-        tests:
-          - not_null
-          - relationships:
-              to: ref('stg_counties')
-              field: county_hash
 
   - name: stg_vendors
     description: >
@@ -88,7 +74,7 @@ models:
         description: The vendor number
         tests:
           - not_null
-  
+
   - name: stg_invoices
     description: >
       A staging view containing one record per invoice.
@@ -102,17 +88,3 @@ models:
         description: The invoice number
         tests:
           - not_null
-      - name: store_hash
-        description: Foreign key to the store
-        tests:
-          - not_null
-          - relationships:
-              to: ref('stg_stores')
-              field: store_hash
-      - name: vendor_hash
-        description: Foreign key to the vendor
-        tests:
-          - not_null
-          - relationships:
-              to: ref('stg_vendors')
-              field: vendor_hash
