@@ -20,3 +20,29 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    networks:
+      - iowa_net
+  
+  dbt:
+    build:
+      context: ./dbt_iowa
+      dockerfile: Dockerfile.dbt
+    container_name: dbt_iowa
+    command: sh -c "dbt deps && dbt build"
+    environment:
+      POSTGRES_TEST_HOST: ${POSTGRES_HOST}
+    volumes:
+      - ./dbt_iowa:/usr/app/dbt_iowa
+    ports:
+      - ${DBT_PORT}:${DBT_PORT}
+    env_file:
+      - .env
+    networks:
+      - iowa_net
+    depends_on:
+      - db
+
+networks:
+  iowa_net:
+    name: iowa_net
+    driver: bridge
