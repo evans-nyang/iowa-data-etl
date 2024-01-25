@@ -202,3 +202,6 @@ secrets.yml
 # notebooks
 .ipynb_checkpoints
 *.ipynb*
+
+# logs
+logs
