@@ -12,7 +12,6 @@ from ingest_script import ingest_callable
 
 AIRFLOW_HOME = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
 
-
 PG_HOST = os.getenv('POSTGRES_HOST')
 PG_USER = os.getenv('POSTGRES_USER')
 PG_PASSWORD = os.getenv('POSTGRES_PASSWORD')
@@ -28,8 +27,8 @@ local_workflow = DAG(
 
 
 URL_PREFIX = 'https://data.iowa.gov/resource' 
-URL_TEMPLATE = URL_PREFIX + '/m3tr-qhgy.json'
-OUTPUT_FILE_TEMPLATE = AIRFLOW_HOME + '/output_{{ execution_date.strftime(\'%Y_%m\') }}.json'
+URL_TEMPLATE = URL_PREFIX + '/m3tr-qhgy.csv'
+OUTPUT_FILE_TEMPLATE = AIRFLOW_HOME + '/output_{{ execution_date.strftime(\'%Y_%m\') }}.csv'
 TABLE_NAME_TEMPLATE = 'iowa_liqour_sales_{{ execution_date.strftime(\'%Y_%m\') }}'
 
 with local_workflow:
@@ -48,7 +47,7 @@ with local_workflow:
             port=PG_PORT,
             db=PG_DATABASE,
             table_name=TABLE_NAME_TEMPLATE,
-            json_file=OUTPUT_FILE_TEMPLATE
+            csv_file=OUTPUT_FILE_TEMPLATE
         ),
     )
 
