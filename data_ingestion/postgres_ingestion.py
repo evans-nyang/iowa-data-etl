@@ -1,5 +1,3 @@
-import psycopg2
-from file_reader import load_configuration, load_data, load_secret
 
 def connect_to_db(config, secret):
     conn = psycopg2.connect(

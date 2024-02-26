@@ -41,6 +41,14 @@ services:
       - iowa_net
     depends_on:
       - db
+    
+  # airflow:
+    # build:
+    #   context: ./airflow
+    #   dockerfile: Dockerfile.airflow
+    # image: apache/airflow:latest
+    # container_name: airflow
+    # command: sh -c "airflow db init && airflow users create --username admin --firstname admin --lastname admin --role Admin --email
 
 networks:
   iowa_net:
