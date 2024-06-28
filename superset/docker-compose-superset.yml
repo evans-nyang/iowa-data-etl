@@ -1,0 +1,20 @@
+services:
+  superset:
+    build:
+      context: .
+      dockerfile: Dockerfile.superset
+    container_name: superset
+    environment:
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - ADMIN_USERNAME=${ADMIN_USERNAME}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+    env_file:
+      - .env
+    ports:
+      - "8088:8088"
+    networks:
+      - iowa_net
+
+networks:
+  iowa_net:
+    external: true
