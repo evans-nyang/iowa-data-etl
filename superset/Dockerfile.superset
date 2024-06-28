@@ -1,20 +1,19 @@
-FROM apache/superset
-# Switching to root to install the required packages
+
+FROM apache/superset:latest
+
 USER root
-# Example: installing the MySQL driver to connect to the metadata database
-# if you prefer Postgres, you may want to use `psycopg2-binary` instead
-RUN pip install --no-cache-dir mysqlclient psycopg2-binary
-# Example: installing a driver to connect to Redshift
-# Find which driver you need based on the analytics database
-# you want to connect to here:
-# https://superset.apache.org/installation.html#database-dependencies
-# RUN pip install --no-cache-dir sqlalchemy-redshift
-# Switching back to using the `superset` user
+
+RUN pip install psycopg2-binary
+
+ENV ADMIN_USERNAME $ADMIN_USERNAME
+ENV ADMIN_EMAIL $ADMIN_EMAIL
+ENV ADMIN_PASSWORD $ADMIN_PASSWORD
+
+COPY ./superset-init.sh /superset-init.sh
+RUN chmod +x /superset-init.sh
+
+COPY superset_config.py /app/
+ENV SUPERSET_CONFIG_PATH /app/superset_config.py
+
 USER superset
-
-COPY . /app
-
-# Run the initialization script during container startup
-# CMD ["/bin/bash", "-c", "/app/startup-script.sh"]
-
-ENV SUPERSET_CONFIG_PATH superset_config.py
+ENTRYPOINT [ "/superset-init.sh" ]

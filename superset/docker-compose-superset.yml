@@ -1,20 +1,17 @@
-version: '3.7'
-
 services:
   superset:
     build:
       context: .
       dockerfile: Dockerfile.superset
     container_name: superset
-    restart: always
     environment:
-      - SUPERSET_DATABASE_URI=${SUPERSET_DATABASE_URI}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - ADMIN_USERNAME=${ADMIN_USERNAME}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
     env_file:
       - .env
     ports:
-      - ${SUPERSET_PORT}:${SUPERSET_PORT}
-    volumes:
-      - ./superset:/home/superset
+      - "8088:8088"
     networks:
       - iowa_net
 
